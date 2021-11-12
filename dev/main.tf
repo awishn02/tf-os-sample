@@ -32,3 +32,7 @@ resource "aws_ssm_parameter" "foo_test" {
   type  = "String"
   value = var.environment.inputs.ssm_parameter_value
 }
+
+output "random_output" {
+  value = "some_output"
+}

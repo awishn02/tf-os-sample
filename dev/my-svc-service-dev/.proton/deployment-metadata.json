@@ -1,0 +1,10 @@
+{
+  "deploymentId" : "",
+  "resourceMetadata" : {
+    "arn" : "arn:aws:proton:us-east-1:617296401743:service/my-svc/service-instance/service-dev",
+    "templateArn" : "arn:aws:proton:us-east-1:617296401743:service-template/tf-svc-ssm-template",
+    "templateMajorVersion" : "1",
+    "templateMinorVersion" : "2",
+    "environmentArn" : "arn:aws:proton:us-east-1:617296401743:environment/dev"
+  }
+}

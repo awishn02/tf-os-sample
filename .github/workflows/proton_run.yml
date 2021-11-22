@@ -77,7 +77,7 @@ jobs:
 
           resource_portion=${modified_resource_arn##*:}
           IFS='/'
-          read -a split_resources <<< "$text"
+          read -a split_resources <<< "$resource_portion"
 
           service_name=${split_resources[1]}
           instance_name=${split_resources[3]}

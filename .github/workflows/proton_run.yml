@@ -6,8 +6,8 @@ name: 'proton-run'
 on: push
 
 jobs:
-  call-terraform-for-all-updated-resources:
-    name: Provision Updates
+  get-deployment-data:
+    name: Get Deployment Data
     runs-on: ubuntu-latest
     
     # We only want to perform this if the commit creator is AWS Proton as this
@@ -15,6 +15,10 @@ jobs:
     # AWS Proton.
     #if: github.event.pusher.name == 'aws-connector-for-github'
     if: github.event.pusher.name == 'awishn02'
+    
+    outputs:
+      role-arn: ${{ steps.get-data.outputs.role-arn }}
+      environment: ${{ steps.get-data.outputs.environment }}
     
     permissions:
       id-token: write
@@ -44,8 +48,8 @@ jobs:
           fi
         done
         
-    - name: Find Role
-      id: find-role
+    - name: Get data
+      id: get-data
       run: |
          modified_resource_arn=$(jq '.resourceMetadata.arn' ${{ steps.find-modified.outputs.deployment-metadata-path }})
          if [[ "$modified_resource_arn" == *":environment/"* ]]; then
@@ -60,8 +64,8 @@ jobs:
         environment: ${{ steps.find-role.outputs.environment }}
     
     
- # call-terraform-workflow:
- #   uses: awishn02/tf-os-sample/.github/workflows/terraform.yml@main
- #   with:
- #     role_arn: 'arn:aws:iam::617296401743:role/TerraformGitHubActionsRole'
- #     environment: 'dev'
+  call-terraform-workflow:
+    uses: awishn02/tf-os-sample/.github/workflows/terraform.yml@main
+    with:
+      role_arn: ${{ needs.get-deployment-data.outputs.role-arn }}
+      environment: ${{ needs.get-deployment-data.outputs.environment }}

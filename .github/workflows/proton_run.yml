@@ -7,6 +7,7 @@ on:
   push:
     paths-ignore:
       - '.github/**'
+      - 'env_config.json'
 
 jobs:
   get-deployment-data:
@@ -61,11 +62,13 @@ jobs:
         modified_resource_arn=$(jq '.resourceMetadata.arn' ${{ steps.find-modified.outputs.deployment-metadata-path }})
         echo $modified_resource_arn
         if [[ "$modified_resource_arn" == *":environment/"* ]]; then
-          echo "in here"
-          echo "::set-output name=role-arn::arn:aws:iam::617296401743:role/TerraformGitHubActionsRole"
-          echo "::set-output name=environment::dev"
+          environment_name=${modified_resource_arn##*/}
+          echo $environment_name
         fi
-        echo "here"
+        echo "::set-output name=environment::$environment_name"
+        
+        role_arn=$(jq '.$environment_name.role-arn' env_config.json))
+        echo "::set-output name=role-arn::$role_arn"
     
   call-terraform-workflow:
     needs: get-deployment-data

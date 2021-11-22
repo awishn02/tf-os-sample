@@ -1,3 +1,6 @@
+# This is a workflow created to run based on a commit made by AWS Proton
+# It only works if there is only one resource modified as part of the commit.
+
 name: 'proton-run'
 
 on: push
@@ -6,6 +9,12 @@ jobs:
   call-terraform-for-all-updated-resources:
     name: Provision Updates
     runs-on: ubuntu-latest
+    
+    # We only want to perform this if the commit creator is AWS Proton as this
+    # workflow assumes that the commit will follow exactly the format provided by
+    # AWS Proton.
+    #if: github.event.pusher.name == 'aws-connector-for-github'
+    if: github.event.pusher.name == 'awishn02'
     
     permissions:
       id-token: write
@@ -20,13 +29,37 @@ jobs:
       id: files
       uses: jitterbit/get-changed-files@v1
       
-    - name: Find modified resources
+    - name: Find modified resource
+      id: find-modified
       run: |
-        for changed_file in ${{ steps.files.outputs.all }}; do
+        found=false
+        for changed_file in ${{ steps.files.outputs.added }}; do
           if [[ "$changed_file" == *".proton/deployment-metadata.json" ]]; then
-            echo "`jq '.resourceMetadata.arn' $changed_file`"
+            if [[ "$found" == true ]]; then
+              echo "More than one resource found to have a new deployment, I'm not sure which one to update, exiting."
+              exit 0
+            fi
+            found=true
+            echo ::set-output name=deployment-metadata-path::"$changed_file"
           fi
         done
+        
+    - name: Find Role
+      id: find-role
+      run: |
+         modified_resource_arn=$(jq '.resourceMetadata.arn' ${{ steps.find-modified.outputs.deployment-metadata-path }})
+         if [[ "$modified_resource_arn" == *":environment/"* ]]; then
+           echo ::set-output name=role-arn::"arn:aws:iam::617296401743:role/TerraformGitHubActionsRole"
+           echo ::set-output name=environment::$("$modified_resource_arn"##*/)
+         fi
+    
+    - name: Run Terraform
+      uses: awishn02/tf-os-sample/.github/workflows/terraform.yml@main
+      with:
+        role_arn: ${{ steps.find-role.outputs.role-arn }}
+        environment: ${{ steps.find-role.outputs.environment }}
+    
+    
  # call-terraform-workflow:
  #   uses: awishn02/tf-os-sample/.github/workflows/terraform.yml@main
  #   with:

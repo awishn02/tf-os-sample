@@ -104,4 +104,4 @@ jobs:
       resource_arn: ${{ needs.get-deployment-data.outputs.resource-arn }}
       working_directory: ${{ needs.get-deployment-data.outputs.working-directory }}
       deployment_id: ${{ needs.get-deployment-data.outputs.deployment-id }}
-      aws_region: ${{ needs.get-deployment.data.outputs.region }}
+      aws_region: ${{ needs.get-deployment-data.outputs.region }}

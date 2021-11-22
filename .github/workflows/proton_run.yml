@@ -8,6 +8,10 @@ on:
     paths-ignore:
       - '.github/**'
       - 'env_config.json'
+  pull_request:
+    paths-ignore:
+      - '.github/**'
+      - 'env_config.json'
 
 jobs:
   get-deployment-data:

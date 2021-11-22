@@ -44,7 +44,7 @@ jobs:
               exit 0
             fi
             found=true
-            echo ::set-output name=deployment-metadata-path::"$changed_file"
+            echo "::set-output name=deployment-metadata-path::$changed_file"
           fi
         done
     
@@ -56,8 +56,8 @@ jobs:
         echo $modified_resource_arn
         if [[ "$modified_resource_arn" == *":environment/"* ]]; then
           echo "in here"
-          echo ::set-output name=role-arn::"arn:aws:iam::617296401743:role/TerraformGitHubActionsRole"
-          echo ::set-output name=environment::"dev"
+          echo "::set-output name=role-arn::arn:aws:iam::617296401743:role/TerraformGitHubActionsRole"
+          echo "::set-output name=environment::dev"
         fi
         echo "here"
     

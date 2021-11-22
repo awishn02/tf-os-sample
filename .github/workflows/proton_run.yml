@@ -1,0 +1,31 @@
+name: 'proton-run'
+
+on: push
+
+jobs:
+  call-terraform-for-all-updated-resources:
+    name: Provision Updates
+    runs-on: ubuntu-latest
+    
+    permissions:
+      id-token: write
+      contents: read
+    
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    - name: Get changed files
+      uses: jitterbit/get-changed-files@v1
+      
+    - name: Find modified resources
+      run: |
+        for changed_file in ${{ steps.files.outputs.all }}; do
+          echo "Do something with this ${changed_file}."
+        done
+ # call-terraform-workflow:
+ #   uses: awishn02/tf-os-sample/.github/workflows/terraform.yml@main
+ #   with:
+ #     role_arn: 'arn:aws:iam::617296401743:role/TerraformGitHubActionsRole'
+ #     environment: 'dev'

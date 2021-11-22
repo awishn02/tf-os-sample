@@ -23,7 +23,9 @@ jobs:
     - name: Find modified resources
       run: |
         for changed_file in ${{ steps.files.outputs.all }}; do
-          echo "Do something with this ${changed_file}."
+          if [[ "$changed_file" == *".proton/deployment-metadata.json" ]]; then
+            echo "`jq '.resourceMetadata.arn' $changed_file`"
+          fi
         done
  # call-terraform-workflow:
  #   uses: awishn02/tf-os-sample/.github/workflows/terraform.yml@main

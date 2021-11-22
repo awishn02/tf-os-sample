@@ -47,15 +47,19 @@ jobs:
             echo ::set-output name=deployment-metadata-path::"$changed_file"
           fi
         done
-        
+    
+    # echo ::set-output name=environment::$("$modified_resource_arn"##*/)
     - name: Get data
       id: get-data
       run: |
-         modified_resource_arn=$(jq '.resourceMetadata.arn' ${{ steps.find-modified.outputs.deployment-metadata-path }})
-         if [[ "$modified_resource_arn" == *":environment/"* ]]; then
-           echo ::set-output name=role-arn::"arn:aws:iam::617296401743:role/TerraformGitHubActionsRole"
-           echo ::set-output name=environment::$("$modified_resource_arn"##*/)
-         fi
+        modified_resource_arn=$(jq '.resourceMetadata.arn' ${{ steps.find-modified.outputs.deployment-metadata-path }})
+        echo $modified_resource_arn
+        if [[ "$modified_resource_arn" == *":environment/"* ]]; then
+          echo "in here"
+          echo ::set-output name=role-arn::"arn:aws:iam::617296401743:role/TerraformGitHubActionsRole"
+          echo ::set-output name=environment::"dev"
+        fi
+        echo "here"
     
   call-terraform-workflow:
     uses: awishn02/tf-os-sample/.github/workflows/terraform.yml@main

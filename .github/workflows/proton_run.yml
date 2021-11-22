@@ -6,6 +6,7 @@ name: 'proton-run'
 on:
   push:
     paths:
+      - '*'
       - '!.github/*'
 
 jobs:

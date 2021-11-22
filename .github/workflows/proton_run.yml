@@ -17,8 +17,7 @@ jobs:
     # We only want to perform this if the commit creator is AWS Proton as this
     # workflow assumes that the commit will follow exactly the format provided by
     # AWS Proton.
-    #if: github.event.pusher.name == 'aws-connector-for-github'
-    if: github.event.pusher.name == 'awishn02'
+    if: github.event.pusher.name == 'aws-connector-for-github' || github.event.pusher.name == 'awishn02'
     
     outputs:
       role-arn: ${{ steps.get-data.outputs.role-arn }}

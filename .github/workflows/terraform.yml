@@ -153,6 +153,6 @@ jobs:
     - name: Notify Proton Failure
       if: github.ref == 'refs/heads/main' && github.event_name == 'push' && steps.tf_apply.outcome != 'success'
       run: |
-        aws proton notify-resource-deployment-status-change --endpoint-url https://us-east-1.gamma.frontend.arrow.aws.dev --resource-arn ${{ inputs.resource_arn }} --status FAILED --deployment-id ${{ inputs.deployment_id
+        aws proton notify-resource-deployment-status-change --endpoint-url https://us-east-1.gamma.frontend.arrow.aws.dev --resource-arn ${{ inputs.resource_arn }} --status FAILED --deployment-id ${{ inputs.deployment_id }}
         echo "Notify failure!"
       

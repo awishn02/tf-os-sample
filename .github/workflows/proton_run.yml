@@ -57,13 +57,6 @@ jobs:
            echo ::set-output name=environment::$("$modified_resource_arn"##*/)
          fi
     
-    - name: Run Terraform
-      uses: awishn02/tf-os-sample/.github/workflows/terraform.yml@main
-      with:
-        role_arn: ${{ steps.find-role.outputs.role-arn }}
-        environment: ${{ steps.find-role.outputs.environment }}
-    
-    
   call-terraform-workflow:
     uses: awishn02/tf-os-sample/.github/workflows/terraform.yml@main
     with:

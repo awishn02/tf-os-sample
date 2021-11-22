@@ -79,8 +79,8 @@ jobs:
           IFS='/'
           read -a split_resources <<< "$text"
 
-          service_name=$split_resources[1]
-          instance_name=$split_resources[3]
+          service_name=${split_resources[1]}
+          instance_name=${split_resources[3]}
 
           working_directory=$environment_name/$service_name-$instance_name
         elif [[ "$modified_resource_arn" == *"/pipeline"* ]]; then

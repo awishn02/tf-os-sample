@@ -40,7 +40,7 @@ jobs:
       id: find-modified
       run: |
         found=false
-        for changed_file in ${{ steps.files.outputs.added }}; do
+        for changed_file in ${{ steps.files.outputs.all }}; do
           if [[ "$changed_file" == *".proton/deployment-metadata.json" ]]; then
             echo "found file"
             if [[ "$found" == true ]]; then

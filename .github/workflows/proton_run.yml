@@ -62,6 +62,7 @@ jobs:
         echo "here"
     
   call-terraform-workflow:
+    needs: get-deployment-data
     uses: awishn02/tf-os-sample/.github/workflows/terraform.yml@main
     with:
       role_arn: ${{ needs.get-deployment-data.outputs.role-arn }}

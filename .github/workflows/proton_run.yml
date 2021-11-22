@@ -3,7 +3,10 @@
 
 name: 'proton-run'
 
-on: push
+on:
+  push:
+    paths:
+      - '!.github/*'
 
 jobs:
   get-deployment-data:

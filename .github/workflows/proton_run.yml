@@ -55,7 +55,6 @@ jobs:
           fi
         done
     
-    # echo ::set-output name=environment::$("$modified_resource_arn"##*/)
     - name: Get data
       id: get-data
       run: |
@@ -67,7 +66,7 @@ jobs:
         fi
         echo "::set-output name=environment::$environment_name"
         
-        role_arn=$(jq --arg env $environment_name '.[$env]["role"]' env_config.json)
+        role_arn=$(jq --arg env $environment_name '.[$env]["role"]' /env_config.json)
         echo "::set-output name=role-arn::$role_arn"
     
   call-terraform-workflow:

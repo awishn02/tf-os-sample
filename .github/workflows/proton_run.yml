@@ -6,7 +6,7 @@ name: 'proton-run'
 on:
   push:
     paths-ignore:
-      - '.github/*'
+      - '.github/**'
 
 jobs:
   get-deployment-data:

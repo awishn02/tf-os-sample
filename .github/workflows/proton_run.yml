@@ -85,7 +85,7 @@ jobs:
           service_name=${split_resources[1]}
           instance_name=${split_resources[3]}
 
-          working_directory=$environment_name/$service_name-$instance_name
+          working_directory=$environment_name/$service_name-$instance_name/
         elif [[ "$modified_resource_arn" == *"/pipeline"* ]]; then
           environment_name="pipeline"
         fi

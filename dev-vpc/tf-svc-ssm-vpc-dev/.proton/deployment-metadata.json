@@ -1,0 +1,10 @@
+{
+  "deploymentId" : "30648bf6-810c-48c1-bbf9-3e93715ce26c",
+  "resourceMetadata" : {
+    "arn" : "arn:aws:proton:us-east-1:617296401743:service/tf-svc-ssm-vpc/service-instance/dev",
+    "templateArn" : "arn:aws:proton:us-east-1:617296401743:service-template/tf-ssm-vpc-service-template",
+    "templateMajorVersion" : "1",
+    "templateMinorVersion" : "1",
+    "environmentArn" : "arn:aws:proton:us-east-1:617296401743:environment/dev-vpc"
+  }
+}

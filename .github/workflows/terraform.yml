@@ -150,9 +150,17 @@ jobs:
     - name: Notify Proton Success
       if: github.ref == 'refs/heads/main' && github.event_name == 'push' && steps.tf_apply.outcome == 'success'
       run: |
-        outputs=$(terraform output -json)
-        echo $outputs
-        aws proton notify-resource-deployment-status-change --endpoint-url https://us-east-1.gamma.frontend.arrow.aws.dev --resource-arn ${{ inputs.resource_arn }} --status SUCCEEDED --deployment-id ${{ inputs.deployment_id }}
+        # Get outputs as json
+        outputs_json=$(terraform output -json)
+
+        # The outputs parameters expects a list of key=keyName,valueString=value key=key2Name,valueString=value2 etc...
+        # So here we convert the output json into a shell array
+        # NOTE: This will probably not play nicely with complex output objects (non primitives)
+
+        formatted_outputs=( $(echo $outputs_json | jq -r "to_entries|map(\"key=\(.key),valueString=\(.value.value|tostring)\")|.[]") )
+
+        # Notify proton
+        aws proton notify-resource-deployment-status-change --endpoint-url https://us-east-1.gamma.frontend.arrow.aws.dev --resource-arn ${{ inputs.resource_arn }} --status SUCCEEDED --deployment-id ${{ inputs.deployment_id }} --outputs $formatted_outputs
         echo "Notify success!"   
         
     - name: Notify Proton Failure

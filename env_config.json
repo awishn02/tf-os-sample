@@ -2,5 +2,9 @@
     "dev": {
         "role": "arn:aws:iam::617296401743:role/TerraformGitHubActionsRole",
         "region": "us-west-2"
+    },
+    "dev-vpc": {
+        "role": "arn:aws:iam::617296401743:role/TerraformGitHubActionsRole",
+        "region": "us-west-2"
     }
 }

@@ -4,6 +4,6 @@
     "arn" : "arn:aws:proton:us-east-1:617296401743:environment/dev-vpc",
     "templateArn" : "arn:aws:proton:us-east-1:617296401743:environment-template/tf-vpc-env-template",
     "templateMajorVersion" : "1",
-    "templateMinorVersion" : "0"
+    "templateMinorVersion" : "1"
   }
 }

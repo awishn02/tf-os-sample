@@ -6,6 +6,15 @@ To manage this resource, see AWS Proton Resource: arn:aws:proton:us-east-1:61729
 If the resource is no longer is accessible within AWS Proton, it may have been deleted and may require manual cleanup.
 */
 
+variable "environment" {
+  type = object({
+    account_id = string
+    name = string
+    outputs = map(string)
+  })
+  default = null
+}
+
 variable "service" {
   type = object({
     name = string
@@ -16,11 +25,6 @@ variable "service_instance" {
   type = object({
     name = string
     inputs = map(string)
-    environment = object({
-      account_id = string
-      outputs = map(string)
-      name = string
-    })
   })
   default = null
 }

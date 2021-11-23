@@ -15,11 +15,7 @@ terraform {
   }
   # This tells terraform to store the state file in s3 at the location
   # s3://terraform-state-bucket/tf-os-sample/terraform.tfstate
-  backend "s3" {
-    bucket = "wishnick-terraform-states"
-    key    = "tf-os-sample/terraform.tfstate"
-    region = "us-west-2"
-  }
+  backend "s3" { }
 }
 
 # Configure the AWS Provider

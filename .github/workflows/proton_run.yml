@@ -88,6 +88,14 @@ jobs:
           working_directory=$environment_name/$service_name-$instance_name/
         elif [[ "$modified_resource_arn" == *"/pipeline"* ]]; then
           environment_name="pipeline"
+
+          resource_portion=${modified_resource_arn##*:}
+          IFS='/'
+          read -a split_resources <<< "$resource_portion"
+
+          service_name=${split_resources[1]}
+
+          working_directory=pipeline/$service_name
         fi
         echo "::set-output name=working-directory::$working_directory"
         echo "::set-output name=environment::$environment_name"

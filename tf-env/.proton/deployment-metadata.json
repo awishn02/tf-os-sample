@@ -1,0 +1,9 @@
+{
+  "deploymentId" : "",
+  "resourceMetadata" : {
+    "arn" : "arn:aws:proton:us-west-2:351419626416:environment/tf-env",
+    "templateArn" : "arn:aws:proton:us-west-2:351419626416:environment-template/tf-ssm-env-template",
+    "templateMajorVersion" : "1",
+    "templateMinorVersion" : "0"
+  }
+}

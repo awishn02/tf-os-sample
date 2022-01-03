@@ -1,8 +1,8 @@
 {
-  "deploymentId" : "d21c8eea-fa8b-4aa8-9bac-466776c5142c",
+  "deploymentId" : "9452e1bd-283e-45b6-b835-6e4b4115ba9f",
   "resourceMetadata" : {
-    "arn" : "arn:aws:proton:us-west-2:351419626416:environment/dev",
-    "templateArn" : "arn:aws:proton:us-west-2:351419626416:environment-template/tf-ssm-env-template",
+    "arn" : "arn:aws:proton:us-east-1:617296401743:environment/dev",
+    "templateArn" : "arn:aws:proton:us-east-1:617296401743:environment-template/tf-template-fixes-test",
     "templateMajorVersion" : "1",
     "templateMinorVersion" : "0"
   }

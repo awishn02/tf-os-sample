@@ -1,0 +1,15 @@
+name: 'proton-run'
+
+on: pull_request
+
+jobs:
+  check_pr_title:
+    name: Check PR Title
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Check
+      run: |
+        if [[ "MERGE" != *"${{ github.event.pull_request.title }}"* ]]; then
+          exit 1
+        fi

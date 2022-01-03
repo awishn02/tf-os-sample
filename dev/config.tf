@@ -6,10 +6,19 @@ To manage this resource, see AWS Proton Resource: arn:aws:proton:us-east-1:61729
 If the resource is no longer is accessible within AWS Proton, it may have been deleted and may require manual cleanup.
 */
 
-variable "environment" {
-  type = object({
-    inputs = map(string)
-    name = string
-  })
-  default = null
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.0"
+    }
+  }
+
+  backend "s3" { }
 }
+
+# Configure the AWS Provider
+provider "aws" {
+  region = "us-west-2"
+}
+

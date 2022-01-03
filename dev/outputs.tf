@@ -6,10 +6,7 @@ To manage this resource, see AWS Proton Resource: arn:aws:proton:us-east-1:61729
 If the resource is no longer is accessible within AWS Proton, it may have been deleted and may require manual cleanup.
 */
 
-variable "environment" {
-  type = object({
-    inputs = map(string)
-    name = string
-  })
-  default = null
+output "vpc_arn" {
+    value = module.vpc.vpc_arn
 }
+
